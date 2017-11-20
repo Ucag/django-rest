@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>在线 Python 解释器</title>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <style>
+      #run {
+          width: 20%; /*规定按钮的宽度*/
+          margin-top: 10px; /*留出和输入框的间距*/
+      }
+      #code {
+        font-size: 25px;
+        resize: none;
+      }
+      #output {
+        font-size: 25px;
+        resize: none;
+      }
+    </style>
+  </head>
+  <body style="background-image:url(http://img1.3lian.com/img2011/w12/1202/19/d/43.jpg); "><!--在下面的注释中 bs 代表 bootstrap -->
+  <div class="container"><!-- 页面的整体布局 -->
+      <div class="row"> <!-- 这一行单独用来放标题 -->
+        <div class="col-lg-12"> <!-- 根据 bs规定，所有内容应放在 col 中。这一列占满一行 -->
+          <p class="text-center h1"> <!-- text-center 是 bs 中央排版类，h1 是 bs 一号标题类 -->
+            在线 Python 解释器
+          </p>
+        </div>
+      </div>
+      <hr><!-- 标题和真正内容的分割线 -->
+      <div class="row"><!-- 这一行用来放置主要内容 -->
+        <div class="col-lg-6"><!-- 代码输入部分 -->
+          <p class="text-center h3">
+            在下面输入代码
+          </p>
+          <textarea id="code" placeholder="Your code here." class="form-control" ></textarea>
+          <div class='text-right'><button id="run" type="button" class="btn btn-primary ">运行</button></div>
+        </div>
+        <div class="col-lg-6"><!-- 结果显示部分 -->
+        <p class="text-center h3">运行结果</p>
+        <div class="col-lg-12"><textarea id="output" disabled placeholder="Please input your code and click <run> button to excute your python script" class="text-center form-control"></textarea></div>
+        </div>
+      </div>
+  </div>
+    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script>
+      // 动态大小函数
+      function changeSize(ele){
+        $(ele).css({'height':'auto','overflow-y':'hidden'}).height(ele.scrollHeight)
+      }
+      // 将动态大小改变函数应用到输入框
+      $('#code').each(function(){
+          this.oninput = function(){
+            changeSize(this)
+          }
+        })
+      //获取输入框代码
+      function getCode(){
+        return $('#code').val()
+      }
+      //打印结果到输出框并改变输出框大小
+      function print(data){
+        var ele = document.getElementById('output')
+        output.value = data['output']
+        changeSize(output)
+      } 
+      // 点击按钮发送代码
+      $('#run').click(function(){
+        $.ajax({
+          url:'/api/', //代码发送的地址
+          type:'POST', // 请求类型
+          data: {'code':getCode()},//调用代码获取函数，获得代码文本
+          dataType: 'json', //期望获取的响应类型为 json
+          success: print // 在请求成功之后调用 pprint 函数，将结果打印到输出框
+        })
+      })
+    </script>
+  </body>
+</html>
