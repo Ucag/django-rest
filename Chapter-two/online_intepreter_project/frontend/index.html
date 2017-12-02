@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ch">
+<head>
+    <meta charset="UTF-8">
+    <title>在线 Python 解释器</title>
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/main.css" rel="stylesheet"> <!--引入我们写的 css-->
+</head>
+<body>
+<div class="continer-fluid"><!--使用 fluid 类属性，让主页填满整个浏览器-->
+    <div class="row text-center h1">
+        在线 Python 解释器
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-md-3">
+            <table class="table table-striped"><!--文件列表-->
+                <thead> <!--标题-->
+                    <tr>
+                        <th class="text-center">文件名</th> <!--标题居中-->
+                        <th class="text-center">选项</th> <!--标题居中-->
+                    </tr>
+                </thead>
+                <tbody></tbody> <!-- 列表实体，由 js 渲染列表实体-->
+            </table>
+        </div>
+        <div class="col-md-9">
+            <div class="container-fluid">
+                <div class="col-md-6">
+                    <p class="text-center h3">请在下方输入代码:</p>
+                    <textarea class="form-control" id="code-input"></textarea> <!--代码输入-->
+                    <label for="code-name-input">代码片段名</label>
+                    <p class="text-info">如需保存代码，建议输入代码片段名</p>
+                    <input type="text" class="form-control" id="code-name-input">
+                    <hr>
+                    <div id="code-options"
+                         style="display: flex;
+                         justify-content: space-around;
+                         flex-wrap: wrap" > <!--代码选项，采用 flex 布局，使每个选项都均匀分布-->
+                    </div>
+                </div>
+                <p class="text-center h3">输出</p>
+                <div class="col-md-6">
+                    <textarea id="code-output" disabled
+                              class="form-control text-center"></textarea><!--结果输出-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="js/jquery.js"></script>
+<script src="js/bootstrap.js"></script>
+<script src="js/main.js"></script> <!--引入我们的 js 文件-->
+</body>
+</html>

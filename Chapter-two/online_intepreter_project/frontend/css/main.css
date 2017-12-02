@@ -1,0 +1,4 @@
+#code-input, #code-output {
+    resize: none;
+    font-size: 25px;
+} /*设置输入输出框的字体大小，禁用他们的 resize 功能*/
